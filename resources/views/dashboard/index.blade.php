@@ -16,13 +16,45 @@
             </div>
         </div>
     </div>
+    <div id="banner2" class="pt-2">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        @if (session('success'))
+                    <div class=" bg-yellow-600 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-white flex justify-between">
+                            <p>Vamos ! {{ session('success') }}</p>
+            
+                            <button onclick="hapusbanner2()" data-dismiss-target="#marketing-banner" type="button" class="shrink-0 inline-flex justify-center w-7 h-7 items-center text-white hover:bg-gray-200 hover:text-black rounded-lg text-sm p-1.5 ">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                </svg>
+                                <span class="sr-only">Close banner</span>
+                            </button>
+                        </div>
+                    </div>
+                 @endif
+            </div>
+        </div>
+
+        <div id="banner3" class="pt-2">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if (session('delete'))
+                        <div class=" bg-red-600 overflow-hidden shadow-sm sm:rounded-lg">
+                            <div class="p-6 text-white flex justify-between">
+                                <p>Vamos ! {{ session('delete') }}</p>
+                
+                                <button onclick="hapusbanner3()" data-dismiss-target="#marketing-banner" type="button" class="shrink-0 inline-flex justify-center w-7 h-7 items-center text-white hover:bg-gray-200 hover:text-black rounded-lg text-sm p-1.5 ">
+                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                    </svg>
+                                    <span class="sr-only">Close banner</span>
+                                </button>
+                            </div>
+                        </div>
+                     @endif
+                </div>
+            </div>   
 </div>
 
-       @if (session('success'))
-            <div class="p-3 rounded bg-green-500 text-green-100 mb-4">
-                {{ session('success') }}
-            </div>
-        @endif
 
 <main class="flex-1 overflow-y-auto p-4 md:p-6 bg-gray-50">
     <div class="mb-6">
@@ -130,7 +162,7 @@
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <div class="flex space-x-2">
-                                <button onclick="window.location.href='{{ route('books.show') }}'" class="text-emerald-600 hover:text-emerald-900" title="Lihat Detail">
+                                <button onclick="window.location.href='{{ route('books.show', $book) }}'" class="text-emerald-600 hover:text-emerald-900" title="Lihat Detail">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                 </button>
                                 
@@ -140,14 +172,20 @@
                                 </button>
                                 @endif
 
+
+                            <form onsubmit="return confirm('Apakah Anda Yakin ?');"
+                                action="{{ route('books.destroy', $book) }}" method="POST">
+
                                 @csrf
                                 @method('DELETE')
 
                                 @if (auth()->user()->role === 'admin')
-                                <button class="text-red-600 hover:text-red-900" type="submit" title="Hapus">
+                                <button class="text-red-600 hover:text-red-900" type="submit" >
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
                                 </button>
                                 @endif
+
+                            </form>
 
 
                             </div>
@@ -209,9 +247,18 @@
     </div>
 </main>
 
+
 <script>
     function hapusbanner() {
         const banner = document.getElementById('banner');
+        banner.remove(); 
+    }
+    function hapusbanner2() {
+        const banner = document.getElementById('banner2');
+        banner.remove(); 
+    }
+    function hapusbanner3() {
+        const banner = document.getElementById('banner3');
         banner.remove(); 
     }
 </script>

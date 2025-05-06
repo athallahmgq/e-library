@@ -1,3 +1,5 @@
+
+
 @extends('layout.app')
 @section('page_title', 'Lihat Buku')
 @section('title', 'Lihat Buku')
@@ -24,22 +26,27 @@
                     <div class="col-span-1">
                         <div class="flex flex-col items-center">
                             <!-- Book Cover -->
+                            
                             <div class="w-full h-80 bg-gray-100 rounded-lg shadow-md mb-4 overflow-hidden">
-                                <img src="https://images-na.ssl-images-amazon.com/images/I/81wgcld4wxL.jpg" alt="Book cover" class="w-full h-full object-cover">
+                                @if($book->cover)
+                                <img src="{{ asset('storage/' . $book->cover) }}" alt="Cover Buku" width="200">
+                                @else
+                                <p class="text-gray-500 italic">Tidak ada cover</p>
+                                @endif
                             </div>
                             
                             <!-- Status Badge -->
                             <div class="mb-4">
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="m9 11 3 3L22 4"></path></svg>
-                                    Tersedia
+                                    Tersedia {{ $book->available }}
                                 </span>
                             </div>
                             
                             <!-- Action Buttons -->
                             <div class="flex w-full space-x-2">
                                 @if (auth()->user()->role === 'admin')
-                                <a href="{{ route('books.edit') }}" class="flex-1 inline-flex justify-center items-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">
+                                <a href="{{ route('books.edit', $book->id) }}" class="flex-1 inline-flex justify-center items-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg>
                                     Edit
                                 </a>
@@ -66,44 +73,44 @@
                     <div class="col-span-1 md:col-span-2">
                         <!-- Book Title and Author -->
                         <div class="mb-6">
-                            <h1 class="text-2xl font-bold text-gray-900 mb-1">Atomic Habits</h1>
-                            <p class="text-lg text-gray-600">oleh James Clear</p>
+                            <h1 class="text-2xl font-bold text-gray-900 mb-1">{{ $book->title }}</h1>
+                            <p class="text-lg text-gray-600">oleh {{ $book->author }}</p>
                         </div>
                         
                         <!-- Book Details -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-6">
                             <div>
                                 <h3 class="text-sm font-medium text-gray-500">Penerbit</h3>
-                                <p class="mt-1 text-sm text-gray-900">Penguin Random House</p>
+                                <p class="mt-1 text-sm text-gray-900">{{ $book->publisher }}</p>
                             </div>
                             
                             <div>
                                 <h3 class="text-sm font-medium text-gray-500">Tahun Terbit</h3>
-                                <p class="mt-1 text-sm text-gray-900">2018</p>
+                                <p class="mt-1 text-sm text-gray-900">{{ $book->year }}</p>
                             </div>
                             
                             <div>
                                 <h3 class="text-sm font-medium text-gray-500">Jumlah Halaman</h3>
-                                <p class="mt-1 text-sm text-gray-900">320</p>
+                                <p class="mt-1 text-sm text-gray-900">{{ $book->pages }}</p>
                             </div>
                             
                             <div>
                                 <h3 class="text-sm font-medium text-gray-500">ISBN</h3>
-                                <p class="mt-1 text-sm text-gray-900">978-0735211292</p>
+                                <p class="mt-1 text-sm text-gray-900">{{ $book->isbn }}</p>
                             </div>
                             
                             <div>
                                 <h3 class="text-sm font-medium text-gray-500">Kategori</h3>
                                 <p class="mt-1 text-sm text-gray-900">
                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                        Non-Fiksi
+                                        {{ $book->category }}
                                     </span>
                                 </p>
                             </div>
                             
                             <div>
                                 <h3 class="text-sm font-medium text-gray-500">Tanggal Ditambahkan</h3>
-                                <p class="mt-1 text-sm text-gray-900">15 April 2023</p>
+                                <p class="mt-1 text-sm text-gray-900">{{ $book->waktu }}</p>
                             </div>
                         </div>
                         
@@ -111,8 +118,7 @@
                         <div>
                             <h3 class="text-sm font-medium text-gray-500 mb-2">Deskripsi</h3>
                             <div class="prose prose-sm max-w-none text-gray-900">
-                                <p>Buku tentang bagaimana kebiasaan kecil dapat membawa perubahan luar biasa. James Clear, salah satu pakar terkemuka dunia tentang pembentukan kebiasaan, mengungkapkan strategi praktis yang akan mengajarkan Anda bagaimana membentuk kebiasaan baik, menghilangkan kebiasaan buruk, dan menguasai perilaku-perilaku kecil yang mengarah pada hasil luar biasa.</p>
-                                <p class="mt-2">Jika Anda kesulitan mengubah kebiasaan Anda, masalahnya bukan pada diri Anda. Masalahnya ada pada sistem Anda. Kebiasaan buruk berulang bukan karena Anda tidak ingin berubah, tetapi karena Anda memiliki sistem perubahan yang salah. Atomic Habits menawarkan kerangka kerja yang terbukti untuk meningkatkan diri setiap hari.</p>
+                                <p>{{ $book->description }}</p>
                             </div>
                         </div>
                         

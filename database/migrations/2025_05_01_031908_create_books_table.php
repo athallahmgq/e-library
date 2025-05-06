@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('cover')->nullable();
             $table->boolean('available')->default(true);
-            $table->timestamps();
+            $table->timestamps('waktu');
         });
     }
 

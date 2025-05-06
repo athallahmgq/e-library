@@ -54,7 +54,7 @@
                                     </div>
                                     <div class="flex items-center mt-2">
                                         <input id="available" name="available" type="checkbox"
-                                            class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500">
+                                            class="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500" value="1">
                                         <label for="available" value="{{ old('available') }}"
                                             class="ml-2 block text-sm text-gray-700">Tersedia untuk dipinjam</label>
 

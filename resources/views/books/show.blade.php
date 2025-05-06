@@ -27,9 +27,9 @@
                         <div class="flex flex-col items-center">
                             <!-- Book Cover -->
                             
-                            <div class="w-full h-80 bg-gray-100 rounded-lg shadow-md mb-4 overflow-hidden">
+                            <div class="w-full h-96 bg-gray-100 rounded-lg border-2 border-dashed border-gray-300 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 mb-4 relative">
                                 @if($book->cover)
-                                <img src="{{ asset('storage/' . $book->cover) }}" alt="Cover Buku" width="200">
+                                <img src="{{ asset('storage/' . $book->cover) }}" alt="Cover Buku" class="w-full h-full object-cover rounded-lg absolute inset-0">
                                 @else
                                 <p class="text-gray-500 italic">Tidak ada cover</p>
                                 @endif

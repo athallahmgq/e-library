@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-<div id="banner" class="py-10">
+<div id="banner" class="py-9">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class=" bg-green-600 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-white flex justify-between">
@@ -53,6 +53,25 @@
                      @endif
                 </div>
             </div>   
+
+            <div id="banner4" class="pt-2">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                @if (session('update'))
+                            <div class=" bg-blue-600 overflow-hidden shadow-sm sm:rounded-lg">
+                                <div class="p-6 text-white flex justify-between">
+                                    <p>Vamos ! {{ session('update') }}</p>
+                    
+                                    <button onclick="hapusbanner4()" data-dismiss-target="#marketing-banner" type="button" class="shrink-0 inline-flex justify-center w-7 h-7 items-center text-white hover:bg-gray-200 hover:text-black rounded-lg text-sm p-1.5 ">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                        </svg>
+                                        <span class="sr-only">Close banner</span>
+                                    </button>
+                                </div>
+                            </div>
+                         @endif
+                    </div>
+                </div>   
 </div>
 
 
@@ -167,7 +186,7 @@
                                 </button>
                                 
                                 @if (auth()->user()->role === 'admin')
-                                <button onclick="window.location.href='{{ route('books.edit') }}'" class="text-blue-600 hover:text-blue-900" title="Edit">
+                                <button onclick="window.location.href='{{ route('books.edit', $book->id) }}'" class="text-blue-600 hover:text-blue-900" title="Edit">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg>
                                 </button>
                                 @endif
@@ -259,6 +278,10 @@
     }
     function hapusbanner3() {
         const banner = document.getElementById('banner3');
+        banner.remove(); 
+    }
+    function hapusbanner4() {
+        const banner = document.getElementById('banner4');
         banner.remove(); 
     }
 </script>

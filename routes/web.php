@@ -8,7 +8,8 @@ use App\Models\Book;
 Route::resource('books', BookController::class);
 Route::post('/create', [BookController::class, 'store'])->name('books.store');
 Route::get('/show{book}', [BookController::class, 'show'])->name('books.show');
-Route::get('/edit', [BookController::class, 'edit'])->name('edit');
+Route::get('/books/{book}/edit', [BookController::class, 'edit'])->name('books.edit');
+Route::put('/books/{book}', [BookController::class, 'update'])->name('books.update');
 Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('destroy');
 
 
@@ -26,9 +27,7 @@ Route::get('/create', function () {
     return view('books.create');
 })->name('books.create');
 
-Route::get('/edit', function () {
-    return view('books.edit');
-})->name('books.edit');
+
 
 
 Route::redirect('/', 'dashboard');
